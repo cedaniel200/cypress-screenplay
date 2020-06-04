@@ -4,7 +4,7 @@
     "description": "ejericio inicial de instalacion de cypress",
     "main": "index.js",
     "scripts": {
-        "cypress:open": "cypress open",
+        "cy:open": "cypress open",
         "e2e": "cypress run"
     },
     "keywords": [
@@ -13,6 +13,7 @@
     "author": "cedaniel200",
     "license": "MIT",
     "devDependencies": {
-        "cypress": "^4.7.0"
+        "cypress": "^4.7.0",
+        "cypress-xpath": "^1.6.0"
     }
 }

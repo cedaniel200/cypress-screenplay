@@ -1,0 +1,8 @@
+{
+    "name": "Repositorio-de-prueba",
+    "description": "Esta es la descripciondel repositorio de prueba",
+    "visibility": "private",
+    "startWithReadme": true,
+    "gitignore": "java",
+    "license": "mit"
+}
