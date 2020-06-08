@@ -17,7 +17,7 @@
 import 'cypress-xpath'
 import './commands'
 import './interactions/selectDropDownButton'
-import './tasks/autenticacion'
+import './tasks/authenticate'
 import './tasks/createRepository'
 
 // Alternatively you can use CommonJS syntax:

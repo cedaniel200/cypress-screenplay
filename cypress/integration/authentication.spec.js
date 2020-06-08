@@ -1,4 +1,5 @@
 /// <reference types="cypress"/>
+const loginPage = require('../support/ui/loginPage');
 
 describe('login', () => {
 
@@ -8,12 +9,12 @@ describe('login', () => {
     });
 
     it('Autenticación exitosa', function() {
-        cy.autenticacion(this.userData.email, this.userData.rightPassword);
+        cy.authenticate(this.userData.email, this.userData.rightPassword);
         cy.get('.application-main > .flex-wrap').should('be.visible');
     });
 
     it('Autenticación fallida', function() {
-        cy.autenticacion(this.userData.email, this.userData.wrongPassword);
-        cy.get('#js-flash-container > .flash').should('be.visible');
+        cy.authenticate(this.userData.email, this.userData.wrongPassword);
+        cy.get(loginPage.ERROR_MESSAGE).should('be.visible');
     });
 });
