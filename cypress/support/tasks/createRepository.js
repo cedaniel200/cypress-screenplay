@@ -1,12 +1,14 @@
+const newRepositoryPage = require('../ui/createNewRepositoryPage');
+
 Cypress.Commands.add("createRepository", (repository) => {
-    cy.get('#repository_name').type(repository.name);
+    cy.get(newRepositoryPage.REPOSITORY_NAME).type(repository.name);
     cy.wait(2000);
-    cy.get('.error > strong').should('not.exist');
-    cy.get('#repository_description').type(repository.description);
-    cy.get(`#repository_visibility_${repository.visibility}`).click();
+    cy.get(newRepositoryPage.MESSAGE_REPOSITORY_ALREADY_EXISTS).should('not.exist');
+    cy.get(newRepositoryPage.REPOSITORY_DESCRIPTION).type(repository.description);
+    cy.get(newRepositoryPage.REPOSITORY_VISIBILITY(repository.visibility)).click();
     if (repository.startWithReadme)
-        cy.get('#repository_auto_init').click();
-    cy.selectGitignore('JAVA');
-    cy.selectLicense('mit');
-    cy.get('div.js-with-permission-fields > .btn-primary').click();
+        cy.get(newRepositoryPage.INITIALIZE_THIS_REPOSITORY_WITH_README).click();
+    cy.selectGitignore(repository.gitignore);
+    cy.selectLicense(repository.license);
+    cy.get(newRepositoryPage.CREATE_REPOSITORY).click();
 });

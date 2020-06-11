@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 const loginPage = require('../support/ui/loginPage');
+const homePage = require('../support/ui/homePage');
 
 describe('login', () => {
 
@@ -10,7 +11,7 @@ describe('login', () => {
 
     it('Autenticación exitosa', function() {
         cy.authenticate(this.userData.email, this.userData.rightPassword);
-        cy.get('.application-main > .flex-wrap').should('be.visible');
+        cy.get(homePage.DASHBOARD).should('be.visible');
     });
 
     it('Autenticación fallida', function() {
