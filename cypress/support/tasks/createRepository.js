@@ -8,7 +8,9 @@ Cypress.Commands.add("createRepository", (repository) => {
     cy.get(newRepositoryPage.REPOSITORY_VISIBILITY(repository.visibility)).click();
     if (repository.startWithReadme)
         cy.get(newRepositoryPage.INITIALIZE_THIS_REPOSITORY_WITH_README).click();
-    cy.selectGitignore(repository.gitignore);
-    cy.selectLicense(repository.license);
+    if (repository.gitignore)
+        cy.selectGitignore(repository.gitignore);
+    if (repository.license)
+        cy.selectLicense(repository.license);
     cy.get(newRepositoryPage.CREATE_REPOSITORY).click();
 });
