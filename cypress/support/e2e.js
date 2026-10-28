@@ -1,0 +1,7 @@
+require('cypress-mochawesome-reporter/register')
+require('./interactions/click')
+require('./interactions/type')
+require('./questions/see')
+require('./tasks/addProductToCart')
+require('./tasks/authenticate')
+require('./tasks/completeCheckout')
