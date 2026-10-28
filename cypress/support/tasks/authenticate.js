@@ -1,7 +1,7 @@
-const loginPage = require('../ui/loginPage');
+const loginPage = require('../ui/loginPage')
 
-Cypress.Commands.add("authenticate", (email, password) => {
-    cy.get(loginPage.USERNAME_FIELD).type(email);
-    cy.get(loginPage.PASSWORD_FIELD).type(password);
-    cy.get(loginPage.SIGN_IN_BUTTON).click();
-});
+Cypress.Commands.add('authenticate', (username, password) => {
+  cy.typeInto(loginPage.USERNAME, username)
+  cy.typeInto(loginPage.PASSWORD, password)
+  cy.clickOn(loginPage.LOGIN_BUTTON)
+})
