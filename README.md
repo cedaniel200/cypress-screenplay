@@ -6,8 +6,13 @@
 ![Screenplay](https://img.shields.io/badge/Screenplay-pattern-blue)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-Login y compra completa contra [saucedemo.com](https://www.saucedemo.com) con Cypress y el patrón
-Screenplay, sin Cucumber y sin credenciales propias.
+Proyecto de ejemplo para mostrar la forma más sencilla de implementar el patrón Screenplay dentro
+de un proyecto de Cypress, usando las capacidades que ya ofrece Cypress y sin añadir Cucumber. La
+automatización es independiente de la aplicación: los specs describen el flujo con tareas,
+interacciones y preguntas.
+
+La variante con Cucumber está en
+[cypress-cucumber-screenplay](https://github.com/cedaniel200/cypress-cucumber-screenplay).
 
 ## Qué incluye
 
@@ -15,6 +20,7 @@ Screenplay, sin Cucumber y sin credenciales propias.
 - **Screenplay en Cypress**: `tasks` para el negocio, `interactions` para la interfaz,
   `questions` para las validaciones y `ui` para los selectores.
 - **Cypress 16** con configuración en `cypress.config.js`.
+- **Informe HTML** con `cypress-mochawesome-reporter`, gráficos y capturas embebidas.
 - **Datos de prueba** en fixtures: usuarios y datos del checkout.
 - **Sin credenciales locales**: saucedemo publica sus usuarios de demo.
 
@@ -37,8 +43,19 @@ Para abrir el runner interactivo:
 npm run cy:open
 ```
 
-Cypress muestra el resultado en consola y deja capturas en `cypress/screenshots/` si alguna prueba
-falla. No hay reporte HTML adicional: el runner de Cypress es el informe.
+Cypress muestra el resultado en consola y genera el informe HTML al terminar. Las capturas de las
+pruebas fallidas quedan en `cypress/screenshots/` y se incrustan en el informe.
+
+## Informe
+
+`npm test` deja un único HTML autocontenido en:
+
+```text
+cypress/reports/html/index.html
+```
+
+Incluye el resumen de las suites, duración, gráficos y el detalle de cada prueba. La carpeta
+`cypress/reports/` está ignorada por git: el informe se regenera en cada ejecución.
 
 ## Estructura
 
@@ -50,6 +67,7 @@ cypress
 ├── fixtures
 │   ├── users.json                # usuarios de saucedemo
 │   └── customer.json             # datos del checkout
+├── reports                       # informe generado (ignorado por git)
 └── support
     ├── e2e.js                    # carga comandos y tareas
     ├── interactions               # click y escritura

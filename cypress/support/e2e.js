@@ -1,3 +1,4 @@
+require('cypress-mochawesome-reporter/register')
 require('./interactions/click')
 require('./interactions/type')
 require('./questions/see')
