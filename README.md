@@ -1,59 +1,83 @@
-# Cypress - Screenplay
+# Cypress + Screenplay — Demo Saucedemo
 
-Proyecto de ejemplo donde se trata de implementar el patrón screenplay dentro de un proyecto de Cypress de la manera más simple y usando las caracteristicas y herramientas provistas por Cypress. En este ejemplo la automatización es independiente a la aplicación y no usamos Cucumber (su uso queda para otro ejemplo).
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+![Cypress](https://img.shields.io/badge/Cypress-16.2.0-green)
+![Node.js](https://img.shields.io/badge/Node.js-22%20%7C%2024%20%7C%2026-brightgreen)
+![Screenplay](https://img.shields.io/badge/Screenplay-pattern-blue)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-## Instalación
-Abrimos una consola y nos ubicamos en el directorio del proyecto. Ejecutamos el siguiente comando.
+Login y compra completa contra [saucedemo.com](https://www.saucedemo.com) con Cypress y el patrón
+Screenplay, sin Cucumber y sin credenciales propias.
 
-    npm install
+## Qué incluye
 
-## Ejecución
+- **3 pruebas**: login válido, usuario bloqueado y compra de un producto.
+- **Screenplay en Cypress**: `tasks` para el negocio, `interactions` para la interfaz,
+  `questions` para las validaciones y `ui` para los selectores.
+- **Cypress 16** con configuración en `cypress.config.js`.
+- **Datos de prueba** en fixtures: usuarios y datos del checkout.
+- **Sin credenciales locales**: saucedemo publica sus usuarios de demo.
 
-Antes de ejecutar el proyecto hay que cambiar dentro de la carpete cypress/fixtures el archivo **user.json** dos datos:
+## Requisitos
 
-    "email": "your@Email",
-    "rightPassword": "your_password"
+- **Node.js 22, 24 o 26** (los que soporta Cypress 16).
+- **npm**.
+- **Acceso a internet**: los tests visitan saucedemo.com.
 
-Es importante tener en cuenta que los comando que usamos para las ejecuciones estan configurados en el archivo package.json en el atributo scripts, a continuación los comandos y su equivalencia:
+## Cómo se ejecuta
 
-    cy:open: cypress open
-    e2e: cypress run
-    e2e-report: node scripts/cypress.js
+```sh
+npm install
+npm test
+```
 
-### Ejecución desde el modo interactivo
+Para abrir el runner interactivo:
 
-Para abrir el Cypress Test Runner en modo interactivo ejecutamos el comando:
+```sh
+npm run cy:open
+```
 
-    npm run cy:open
+Cypress muestra el resultado en consola y deja capturas en `cypress/screenshots/` si alguna prueba
+falla. No hay reporte HTML adicional: el runner de Cypress es el informe.
 
-Una vez abierto, seleccionamos el archivo (filename.spec.js) que queramos ejecutar. 
+## Estructura
 
-### Ejecución en navegador headless
-Para ejecutar sobre la consola ejecutamos el comando:
+```text
+cypress
+├── e2e
+│   ├── authentication.cy.js      # login válido y usuario bloqueado
+│   └── purchase.cy.js            # carrito y checkout
+├── fixtures
+│   ├── users.json                # usuarios de saucedemo
+│   └── customer.json             # datos del checkout
+└── support
+    ├── e2e.js                    # carga comandos y tareas
+    ├── interactions               # click y escritura
+    ├── questions                  # visibilidad y texto
+    ├── tasks                      # login, carrito y checkout
+    └── ui                         # selectores por pantalla
+```
 
-    npm run e2e
+## Screenplay en Cypress
 
-### Reporte de pruebas
-Para obtener un reporte de pruebas diferente al que nos aporta Cypress, ejecutamos el comando:
+Cypress no trae el patrón Screenplay, así que el ejemplo lo construye con sus propios comandos:
 
-    npm run e2e-report
+| Concepto | Dónde vive | Ejemplo |
+|---|---|---|
+| Tarea | `support/tasks` | `cy.authenticate(...)` |
+| Interacción | `support/interactions` | `cy.typeInto(...)` |
+| Pregunta | `support/questions` | `cy.seeVisible(...)` |
+| UI | `support/ui` | selectores de login y carrito |
 
-Se creará la carpeta mochawesome-report donde se encontrará el archivo **mochawesome.html**
+Las tareas no conocen los selectores: los reciben de `ui` y delegan la interacción en los comandos
+básicos. Así el test se lee como el flujo de negocio y no como una lista de clics.
 
-## Arquitectura 
+## Ten en cuenta
 
-### Fixtures
-Encontramos los datos estaticos usados en la automatización.
+- **Saucedemo es un sitio público de práctica.** No hay datos reales ni credenciales privadas.
+- **Los tests dependen de la red.** Si saucedemo no responde, fallan por el sitio, no por el código.
+- **Cypress 16 requiere Node 22 o superior.** Con Node 18 o 20 no arranca.
 
-### Integration 
-Encontramos las pruebas en sí, es decir, nuestros casos de pruebas  y/o escenarios de pruebas.
+## Licencia
 
-### plugins
-Para este ejemplo no se usa, pero se usa para agregar los complementos que sean necesarios.
-
-### Support
-Permite agregar nuestros archivos de soporte, en este caso aca se incluiran los directorios necesarios para dar soporte al patrón screenplay.
-*   interactions -> Representan las interacciones directas con la interfaz de usuario
-*   taks -> Representan tareas que se realizan a nivel de proceso de negocio
-*   ui -> Mapean los elementos de la interfaz de usuario
-
+[MIT](LICENSE) © Cesar Daniel
